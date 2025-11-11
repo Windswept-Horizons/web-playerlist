@@ -47,7 +47,7 @@ const showPlayersList = true;
 const theme = "blue";
 
 // Player Profile Image
-const playerProfileImage = "https://wish-rp.b-cdn.net/WebSite/blue.png";
+const playerProfileImage = "https://wish-rp.b-cdn.net/WebSite/wish-dot_blue-small.png";
 
 // Background Image URL (you'll need to add your background image here)
 const backgroundImage = "https://wish-rp.b-cdn.net/WebSite/blue.png";
