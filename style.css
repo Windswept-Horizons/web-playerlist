@@ -45,9 +45,9 @@ body {
     z-index: -1;
 }
 
-.center {
+.center { /* MAIN TITLTLE */
     position: fixed;
-    top: 50%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -149,15 +149,15 @@ img.logo {
     margin-bottom: 0.5vw;
 }
 
-.panel.left {
+.panel.left { /* Leadership Team */
     position: fixed;
-    top: 50%;
+    top: 70%;
     left: 0%;
     margin: 0px 3vw;
     transform: translate(0%, -50%);
 }
 
-.panel.right {
+.panel.right { /* Townsfolk/Players */
     position: fixed;
     top: 50%;
     right: 0%;
