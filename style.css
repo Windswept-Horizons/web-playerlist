@@ -47,8 +47,8 @@ body {
 
 .center {
     position: fixed;
-    top: 82%;
-    left: 55%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
@@ -151,7 +151,7 @@ img.logo {
 
 .panel.left {
     position: fixed;
-    top: 75%;
+    top: 50%;
     left: 0%;
     margin: 0px 3vw;
     transform: translate(0%, -50%);
