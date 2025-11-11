@@ -54,13 +54,9 @@ function loadStaffTeam() {
 
 // Fetch server data from CFX.re API
 async function fetchServerData() {
-    const statusText = document.getElementById('statusText');
-    const statusBar = document.getElementById('statusBar');
     const playerList = document.getElementById('playerList');
     
     try {
-        statusText.textContent = 'Fetching server data...';
-        
         const response = await fetch(apiEndpoint);
         
         if (!response.ok) {
@@ -69,14 +65,6 @@ async function fetchServerData() {
         
         const data = await response.json();
         const serverData = data.Data;
-        
-        // Update status bar
-        const playerCount = serverData.clients || 0;
-        const maxPlayers = serverData.sv_maxclients || 32;
-        const percentage = (playerCount / maxPlayers) * 100;
-        
-        statusBar.style.width = `${percentage}%`;
-        statusText.textContent = `${playerCount}/${maxPlayers} players online`;
         
         // Update player list
         if (showPlayersList) {
@@ -87,8 +75,6 @@ async function fetchServerData() {
         
     } catch (error) {
         console.error('Error fetching server data:', error);
-        statusText.textContent = 'Server offline or unavailable';
-        statusBar.style.width = '0%';
         playerList.innerHTML = '<div class="loading-message">Unable to load player data</div>';
     }
 }
@@ -98,7 +84,7 @@ function updatePlayerList(players) {
     const playerList = document.getElementById('playerList');
     
     if (players.length === 0) {
-        playerList.innerHTML = '<div class="loading-message">No players currently online</div>';
+        playerList.innerHTML = '<div class="loading-message">All Townsfolk are resting at Camp!</div>';
         return;
     }
     
