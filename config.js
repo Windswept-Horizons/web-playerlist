@@ -26,15 +26,15 @@ var staff_team = [
         "rank": "Ambassador"
     },
     {
+        "name": "Raven",
+        "image": "https://wish-rp.b-cdn.net/Webhook-pics/ambassador2.PNG",
+        "rank": "Coordinator"
+    },
+    {
         "name": "Gabi",
         "image": "https://wish-rp.b-cdn.net/Webhook-pics/coordinator.PNG",
         "rank": "Coordinator"
     },
-    {
-        "name": "Raven",
-        "image": "https://wish-rp.b-cdn.net/Webhook-pics/coordinator.PNG",
-        "rank": "Coordinator"
-    }
 ];
 
 // Server Configuration
