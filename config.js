@@ -6,6 +6,11 @@ var staff_team = [
         "rank": "Visionary"
     },
     {
+        "name": "Raven",
+        "image": "https://wish-rp.b-cdn.net/Webhook-pics/ambassador2.PNG",
+        "rank": "Ambassador"
+    },
+    {
         "name": "Es",
         "image": "https://wish-rp.b-cdn.net/Webhook-pics/ambassador2.PNG",
         "rank": "Ambassador"
@@ -17,11 +22,6 @@ var staff_team = [
     },
     {
         "name": "Lis",
-        "image": "https://wish-rp.b-cdn.net/Webhook-pics/ambassador2.PNG",
-        "rank": "Ambassador"
-    },
-    {
-        "name": "Raven",
         "image": "https://wish-rp.b-cdn.net/Webhook-pics/ambassador2.PNG",
         "rank": "Ambassador"
     },
