@@ -96,7 +96,7 @@ function updatePlayerList(players) {
     const playerList = document.getElementById('playerList');
 
     if (players.length === 0) {
-        playerList.innerHTML = '<div class="loading-message">All Townsfolk are resting at Camp!</div>';
+        playerList.innerHTML = '<div class="loading-message">All Townsfolk are resting at Camp... be the first to ride today!</div>';
         return;
     }
 
