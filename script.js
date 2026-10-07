@@ -52,29 +52,41 @@ function loadStaffTeam() {
     });
 }
 
-// Fetch server data from CFX.re API
+// Fetch the Townsfolk list from our Bunny CDN (uploaded by the game server)
 async function fetchServerData() {
     const playerList = document.getElementById('playerList');
-    
+
+    if (!showPlayersList) {
+        document.querySelector('.playerlist').style.display = 'none';
+        return;
+    }
+
     try {
-        const response = await fetch(apiEndpoint);
-        
+        // Cache-buster: a new "?v=" value every 30 seconds makes the CDN fetch a
+        // fresh copy at most every 30s, whatever the pull zone's cache time is.
+        // (Requires Bunny pull zone -> Caching -> Vary Cache -> "URL Query String" ON.)
+        // no-store = never use the visitor's browser cache.
+        const bucket = Math.floor(Date.now() / 30000);
+        const response = await fetch(`${apiEndpoint}?v=${bucket}`, { cache: 'no-store' });
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        const serverData = data.Data;
-        
-        // Update player list
-        if (showPlayersList) {
-            updatePlayerList(serverData.players || []);
-        } else {
-            document.querySelector('.playerlist').style.display = 'none';
+
+        // Stale check: the server uploads every 60s. If the file is old,
+        // the server is restarting or offline, so don't show old names as "online".
+        const ageMinutes = (Date.now() / 1000 - (data.updatedAt || 0)) / 60;
+        if (ageMinutes > staleAfterMinutes) {
+            playerList.innerHTML = '<div class="loading-message">The Open Range is resting... check back soon!</div>';
+            return;
         }
-        
+
+        updatePlayerList(Array.isArray(data.townsfolk) ? data.townsfolk : []);
+
     } catch (error) {
-        console.error('Error fetching server data:', error);
+        console.error('Error fetching townsfolk data:', error);
         playerList.innerHTML = '<div class="loading-message">Unable to load player data</div>';
     }
 }
@@ -82,29 +94,28 @@ async function fetchServerData() {
 // Update player list display
 function updatePlayerList(players) {
     const playerList = document.getElementById('playerList');
-    
+
     if (players.length === 0) {
         playerList.innerHTML = '<div class="loading-message">All Townsfolk are resting at Camp!</div>';
         return;
     }
-    
-    // Sort players by ID
-    players.sort((a, b) => a.id - b.id);
-    
+
+    // Sort A-Z by name (matches the loading screen; server IDs are not shown)
+    players.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+
     playerList.innerHTML = '';
-    
+
     players.forEach(player => {
         const playerElement = document.createElement('div');
         playerElement.className = 'staff'; // Reusing staff styling for consistency
-        
+
         playerElement.innerHTML = `
             <div class="info">
-                <img src="${playerProfileImage}" class="pfp" alt="${player.name}">
+                <img src="${playerProfileImage}" class="pfp" alt="">
                 <span>${sanitizePlayerName(player.name)}</span>
             </div>
-            <div class="status">${player.id}</div>
         `;
-        
+
         playerList.appendChild(playerElement);
     });
 }
@@ -112,7 +123,7 @@ function updatePlayerList(players) {
 // Sanitize player names (remove special characters/emojis that might break display)
 function sanitizePlayerName(name) {
     // Remove FiveM/RedM color codes
-    name = name.replace(/\^[0-9]/g, '');
+    name = String(name).replace(/\^[0-9]/g, '');
     
     // Basic HTML escaping
     const div = document.createElement('div');

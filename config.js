@@ -33,7 +33,6 @@ var staff_team = [
 ];
 
 // Server Configuration
-const serverCode = "rpygbx"; // Your CFX.re server code
 const serverName = "Windswept Horizons";
 
 // Display Settings
@@ -47,8 +46,14 @@ const playerProfileImage = "https://wish-rp.b-cdn.net/WebSite/wish-dot_blue-smal
 // Background Image URL (you'll need to add your background image here)
 const backgroundImage = "https://wish-rp.b-cdn.net/WebSite/blue.png";
 
-// API Endpoints
-const apiEndpoint = `https://servers-frontend.fivem.net/api/servers/single/${serverCode}`;
+// Townsfolk data (2026 update)
+// Cfx no longer publishes player names, so the game server (wish_loadingscreen)
+// uploads townsfolk.json to our Bunny CDN every 60 seconds. This page reads it.
+// >>> Make sure this matches your Bunny PULL ZONE URL <<<
+const apiEndpoint = "https://wish-live.b-cdn.net/townsfolk.json";
+
+// If the list is older than this, assume the server is offline/restarting (minutes)
+const staleAfterMinutes = 5;
 
 // Update interval (in milliseconds) - default 30 seconds
 const updateInterval = 30000;
